@@ -1,6 +1,12 @@
-#
-
-from time import sleep
+from org.myrobotlab.service import Runtime
+from org.myrobotlab.service import OpenCV
+from org.myrobotlab.service import Servo
+from org.myrobotlab.service import Arduino
+from org.myrobotlab.service import MarySpeech
+from org.myrobotlab.service import ProgramAB
+from org.myrobotlab.service import HtmlFilter
+from org.myrobotlab.service import WebkitSpeechRecognition
+import time
 
 # Create OpenCV Service for Vision
 cameraIndex = 0
@@ -140,7 +146,7 @@ def say(text):
   #I couldn't get MouthControl to work with my configuration (Adafruit16CServoDriver)
 	mouth.speak(text)
 	#print "say(" + text + ")"
-	sleep(delaytimebeforespeaking) #in case speech output does not start immediately
+	time.sleep(delaytimebeforespeaking) #in case speech output does not start immediately
 	#what to do when speaking
 	ison = False
 	for w in text.split():
@@ -156,15 +162,15 @@ def say(text):
 			if x == 'a' or x == 'e' or x == 'i' or x == 'o' or x == 'u' or x == 'y' and not ison:
 				jaw.moveTo(jaw_max) # move the servo to the open position
 				ison = True
-				sleep(delaytime)
+				time.sleep(delaytime)
 				jaw.moveTo(jaw_min) # close the servo
 			elif x == '.':
 				ison = False
-				sleep(delaytimestop)
+				time.sleep(delaytimestop)
 			elif x == ',':
-				sleep(delaytimestop)
+				time.sleep(delaytimestop)
 			else:
 				ison = False
-				sleep(delaytimeletter)
+				time.sleep(delaytimeletter)
 
 say("Ready")
